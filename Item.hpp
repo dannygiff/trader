@@ -26,8 +26,10 @@ class Item {
 
             //setters
 
+
             //fns
             void display();
+            void generate();
 };
 
 #endif

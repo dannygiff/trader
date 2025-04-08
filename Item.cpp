@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include <cstdlib>
 
 #include "Item.hpp"
 
@@ -29,4 +30,12 @@ void Item::display()
          << "  Weight: " << setw(5) << left << this->getWgt() * this->getQty()
          << " ("  << setw(3) << left << this->getWgt()  << ") "
          << "  ";
+}
+
+void Item::generate()//generates a random item
+{
+    this->name = "randItem";
+    this->value = rand()%99 + 1;
+    this->weight = rand()%99 + 1;
+    this->qty = rand()%9 + 1;
 }
