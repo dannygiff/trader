@@ -1,4 +1,19 @@
 #include "Inventory.hpp"
+#include <iomanip>
+
+void Inventory::header()
+{
+    cout << endl << getName() << "'s inventory" << endl;
+    bar(40);
+    cout << endl;
+    cout << endl;
+}
+
+void Inventory::bar(int n)
+{
+    for (int i=0; i<n; i++)
+        cout << "=";
+}
 
 Inventory::Inventory()
 {
@@ -39,12 +54,14 @@ void Inventory::fill()//fill the inventory with random items
 
 void Inventory::display()
 {
-    cout << endl << getName() << "'s inventory";
+    header();
     for(int i=0; i<this->size; i++)
     {
-        cout << endl;
+        cout << setw (2) << i+1 << " ";
         this->items[i].display();
+        cout << endl;
     }
+    bar(40);
 }
 
 Inventory::~Inventory()

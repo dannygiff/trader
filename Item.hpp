@@ -10,18 +10,18 @@ class Item {
         private:
             string name;
             int value;
-            int weight;
+            //int weight;
             int qty;
             //string desc;
         protected:
         public:
             Item();
-            Item(string, int, int, int);
+            Item(string, int,  int);
 
             //getters
             string getName(){ return name; }
             int getVal(){ return value; }
-            int getWgt(){ return weight; }
+            //int getWgt(){ return weight; }
             int getQty(){ return qty; }
 
             //setters

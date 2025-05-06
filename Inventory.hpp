@@ -13,6 +13,10 @@ class Inventory {
         string name;
         int size;
         Item *items;
+
+        //helper functions
+        void header();
+        void bar(int);
     protected:
     public:
         Inventory();

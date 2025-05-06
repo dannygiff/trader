@@ -14,10 +14,10 @@ it is independent of the controller and the view
 */
 class Model{
     private:
-        Inventory playerInv; //user inventory
-        Inventory shop;      //shop inventory
-        Item* catalog;       //all items
+        Inventory shop;      //shop inventory 
         vector<Item> cart;   //cart of items to be checked
+        //Item* catalog;       //all items
+        //Inventory playerInv; //user inventory
 
     public:
         Model(); //default constructor
