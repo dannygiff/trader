@@ -8,6 +8,9 @@
 
 using namespace std;
 
+/*
+    the user class contains an identifier and several personal variables for each unique user
+*/
 class User{
     private:
         string name;

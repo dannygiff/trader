@@ -34,4 +34,4 @@ class Inventory {
         ~Inventory();
 };
 
-#endif
+#endif //INVENTORY_H
