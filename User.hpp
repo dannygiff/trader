@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <fstream>
 
 #include "Item.hpp"
 
@@ -28,7 +29,8 @@ class User{
         bool getAdmin(){return admin;}
         int getCurrency(){return currency;}
 
-        void write();
+        void genFile(string); //generates a new userdata file
+        void save(fstream&);
         void login();
 
 

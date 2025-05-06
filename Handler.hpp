@@ -24,14 +24,16 @@ class Handler{
         bool goodInput;
     public:
         Handler();
-        Handler(User, Item);
+        Handler(User, Inventory);
 
         void loadAll();
+        void addUser();
 
         void menu();
         void purchase();
 
         void getInput();
+        User getUser();
 };
 
 #endif //HANDLER_H
