@@ -19,7 +19,7 @@ class Controller{
         Controller(); //default constructor
         Controller(const Model*,const View*); //parameterized constructor
 
-
+        ~Controller();
 };
 
 

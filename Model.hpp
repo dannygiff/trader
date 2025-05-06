@@ -22,6 +22,8 @@ class Model{
     public:
         Model(); //default constructor
 
+        ~Model();//destructor
+
 };
 
 #endif/*MODEL_H*/

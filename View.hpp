@@ -12,6 +12,9 @@ class View{
     public:
         View(); //default constructor
 
+        //show item/inventory/whatevs
+
+        ~View();
 };
 
 #endif/*VIEW_H*/
