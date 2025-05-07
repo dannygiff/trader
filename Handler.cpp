@@ -77,6 +77,47 @@ void Handler::addtoRecord(User u)
     this->nUsers = this->userRecord.size();
 }
 
+void Handler::login()
+{
+    string input;
+    int pos;
+
+    cout << "Please enter a username: ";
+    // do not let the user enter an empty string as a username
+    do {
+        getline(std::cin, input);
+        if (input == "") {
+            cout << "Error - Please enter a valid username: ";
+        }
+    } while (input == "");
+
+    pos = findUser(input);
+
+    if(pos >= 0)
+    {
+        setUser(userRecord[pos]);
+        cout << "Welcome back " << user.getName() << endl;
+    }else{
+        User temp(input, false, 1000);
+        userRecord.push_back(temp);
+        setUser(temp);
+        cout << "Created new user " << user.getName() << endl;
+    }
+}
+
+int Handler::findUser(string name)
+{
+    int pos = -1;
+
+    for(int i=0; i<userRecord.size(); i++)
+    {
+        if(userRecord[i].getName() == name);
+            pos = i;
+    }
+
+    return pos;
+}
+
 void Handler::genCartFile(string filename)
 {
     cout << "generating " << filename << endl;
@@ -158,7 +199,34 @@ void Handler::addToCart(Item itm)
     auto it = cartData.find(user.getName());
     if (it != cartData.end())
     {
-        //it->second.
+        it->second.addItem(itm);
+    }else{
+        //or make a new one
+        Inventory temp(itm);
+        cartData.insert({user.getName(), temp});
     }
+}
 
+void Handler::showUserCart()
+{
+    //find the user's cart
+    auto it = cartData.find(user.getName());
+    if (it != cartData.end())
+    {
+        it->second.setName(it->first);
+        it->second.display();
+        cout << endl;
+    }else{
+        cout << "\nError - could not find user cart" << endl;
+    }
+}
+
+void Handler::menu()
+{
+    cout << "Menu (logged in as " << user.getName() <<  " )" << endl;
+    cout << "1. Change user" << endl;
+    cout << "2. View cart" << endl;
+    cout << "3. View shops" << endl;
+    if(user.getAdmin())
+        cout << "4. View admin menu" << endl;
 }

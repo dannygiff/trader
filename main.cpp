@@ -42,4 +42,14 @@ int main()
     Item bar("bar", 25, 13);
     ctrl.addToCart(bar);
     
+    /*
+        TODO:
+        test login
+        test showUserCart
+        test menu
+        save cartdata
+        get input
+        admin menu
+        put it all together
+    */
 }

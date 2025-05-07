@@ -26,6 +26,13 @@ Inventory::Inventory(string nm)
     size = 0;
 }
 
+Inventory::Inventory(Item itm)
+{
+    name = "";
+    items.push_back(itm);
+    size = items.size();
+}
+
 void Inventory::setName(string nm)
 {
     //input validation?

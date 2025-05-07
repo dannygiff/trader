@@ -22,6 +22,7 @@ class Inventory {
     public:
         Inventory();
         Inventory(string);
+        Inventory(Item);
 
         string getName(){return name;}
         int getSize(){return size;}

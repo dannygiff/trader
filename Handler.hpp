@@ -44,6 +44,7 @@ class Handler{
         void loadRecord(string);
         void saveRecord(string);
         void addtoRecord(User);
+        void login();
         int findUser(string);
 
         //cartData functions
@@ -51,6 +52,7 @@ class Handler{
         void readCartFile(string);    //reads file into cartData map
         void printCarts();            //prints all cartData (for testing)
         void addToCart(Item);
+        void showUserCart();
 
         //shopping functions
         void menu();
