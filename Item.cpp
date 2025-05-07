@@ -58,3 +58,30 @@ void Item::save(fstream &outfile)//writes the item to binary file
     //write qty
     outfile.write( reinterpret_cast<const char *>(&qty), sizeof(qty));
 }
+
+Item Item::load(fstream &infile)
+{
+    //infile should already be open
+
+    string name;
+    int value;
+    int qty;
+
+    //get name length
+    int nameLen = 0;
+    infile.read( reinterpret_cast<char *>( &nameLen ), sizeof( nameLen ) );
+
+    //get name
+    char* temp = new char[nameLen + 1];
+    infile.read( temp, nameLen );
+    temp[nameLen] = '\0';
+    name = temp;
+
+    //get value
+    infile.read( reinterpret_cast<char *>( &value ), sizeof( value ) );
+
+    //get qty
+    infile.read( reinterpret_cast<char *>( &qty ), sizeof( qty ) );
+
+    return Item(name, value, qty);
+}

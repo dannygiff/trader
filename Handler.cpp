@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <map>
 
 #include "Item.hpp"
 #include "Inventory.hpp"
@@ -82,13 +83,71 @@ void Handler::genCartFile(string filename)
 
     string admn = "Admin";
     string test = "test";
+    Inventory a_inv(admn);
+    a_inv.fill(1);
+    Inventory t_inv(test);
+    t_inv.fill(3);
+    map<string, Inventory> m = {{admn, a_inv}, {test, t_inv}};
 
-    // Inventory a_inv();
+    fstream outfile;
+    outfile.open(filename, ios::out | ios::binary);
 
-    // fstream outfile;
-    // outfile.open(filename, ios::out | ios::binary);
-    // outfile.write( reinterpret_cast<const char *>(&nUsers), sizeof(nUsers));
-    // admn.save(outfile);
-    // test.save(outfile);
-    // outfile.close();
+    //write size of map
+    int mSize = m.size();
+    outfile.write( reinterpret_cast<const char *>(&mSize), sizeof(mSize));
+
+    for (auto it = m.begin(); it != m.end(); ++it)
+    {
+        int nameLen = it->first.length();
+        outfile.write(reinterpret_cast<const char*>(&nameLen), sizeof(nameLen)); //write size of name
+
+        outfile.write(it->first.c_str(), nameLen);//write name
+
+        
+        it->second.save(outfile);
+    }
+
+    outfile.close();
+}
+
+void Handler::readCartFile(string filename)
+{
+    fstream infile;
+    
+    int mapSize;
+    infile.open(filename, ios::in | ios::binary);
+
+    infile.read( reinterpret_cast<char *>( &mapSize ), sizeof( mapSize ) );//read cart(map) size
+
+    for(int i=0; i<mapSize; i++)
+    {
+        string name;
+        //get name length
+        int nameLen = 0;
+        infile.read( reinterpret_cast<char *>( &nameLen ), sizeof( nameLen ) );
+
+        //get name
+        char* temp = new char[nameLen + 1];
+        infile.read( temp, nameLen );
+        temp[nameLen] = '\0';
+        name = temp;
+
+        //insert
+        Inventory tempInv;
+        cartData.insert({name, tempInv.load(infile) }); 
+
+        //cleanup
+        delete [] temp;
+    }
+    infile.close();
+}
+
+void Handler::printCarts()
+{
+    for (auto it = cartData.begin(); it != cartData.end(); ++it)
+    {
+        it->second.setName(it->first);
+        it->second.display();
+        cout << endl;
+    }
 }

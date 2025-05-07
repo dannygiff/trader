@@ -6,7 +6,6 @@ void Inventory::header()
     cout << endl << getName() << "'s inventory" << endl;
     bar(40);
     cout << endl;
-    cout << endl;
 }
 
 void Inventory::bar(int n)
@@ -19,17 +18,12 @@ Inventory::Inventory()
 {
     name = "";
     size = 0;
-    items = 0;
 }
 
-Inventory::Inventory(int sz)
+Inventory::Inventory(string nm)
 {
-    name = "";
-    size = sz;
-
-    items = new Item[sz];
-    //for(int i=0; i<sz; i++)
-
+    name = nm;
+    size = 0;
 }
 
 void Inventory::setName(string nm)
@@ -44,13 +38,6 @@ void Inventory::setSize(int sz)
     size = sz;
 }
 
-void Inventory::fill()//fill the inventory with random items
-{
-    for(int i=0; i<this->size; i++)
-    {
-        this->items[i].generate();
-    }
-}
 
 void Inventory::fill(int n)
 {
@@ -58,40 +45,50 @@ void Inventory::fill(int n)
     {
         Item temp;
         temp.generate();
-        this->itemV.push_back(temp);
+        this->items.push_back(temp);
     }
-}
-
-void Inventory::sample()//fill the inventory with a static set of sample items
-{
-
 }
 
 void Inventory::display()
 {
     header();
-    for(int i=0; i<this->size; i++)
+    for(int i=0; i<this->items.size(); i++)
     {
         cout << setw (2) << i+1 << " ";
-        this->items[i].display();
+        this->items.at(i).display();
         cout << endl;
     }
     bar(40);
 }
 
-void Inventory::displayV()
+void Inventory::save(fstream &outfile)
 {
-    header();
-    for(int i=0; i<this->itemV.size(); i++)
+    //outfile should be open
+    int nItems = items.size();
+    outfile.write( reinterpret_cast<const char *>(&nItems), sizeof(nItems));
+    for (int i=0; i<nItems; i++)
     {
-        cout << setw (2) << i+1 << " ";
-        this->itemV.at(i).display();
-        cout << endl;
+        items.at(i).save(outfile);
     }
-    bar(40);
+}
+
+Inventory Inventory::load(fstream &infile)
+{
+    //infile should be open
+    int nItems = 0;
+    infile.read( reinterpret_cast<char *>(&nItems), sizeof(nItems));
+
+    Inventory temp;
+    for(int i=0; i<nItems; i++)
+    {
+        Item d;
+        temp.items.push_back(d.load(infile));
+    }
+
+    return temp;
 }
 
 Inventory::~Inventory()
 {
-    delete [] items;
+    //delete [] items;
 }

@@ -36,17 +36,6 @@ void User::save(fstream &outfile)
     //write currency
     outfile.write( reinterpret_cast<const char *>(&currency), sizeof(currency));
 
-    // //write cart
-    // int cartlen = cart.size();
-    // outfile.write( reinterpret_cast<const char *>(&cartlen), sizeof(cartlen));//write vector size
-    // if (!cart.empty())
-    // {
-    //     for (int i=0; i<cart.size(); i++)
-    //     {
-    //         outfile.write(reinterpret_cast<const char*>(&i), sizeof(i)); //write index
-    //         cart.at(i).save(outfile);
-    //     }
-    // }
 }
 
 User User::loadFromFile(fstream &infile)

@@ -32,6 +32,7 @@ class Item {
             void display();
             void generate();
             void save(fstream &);
+            Item load(fstream &);
 };
 
 #endif

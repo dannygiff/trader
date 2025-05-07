@@ -48,6 +48,8 @@ class Handler{
 
         //shopping functions
         void genCartFile(string);     //generate cartdata.dat file
+        void readCartFile(string);    //reads file into cartData map
+        void printCarts();            //prints all cartData (for testing)
         void menu();
         void purchase();
 

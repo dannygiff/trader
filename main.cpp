@@ -20,6 +20,7 @@ int main()
     //load users
     Handler ctrl;
     string ufname = "userdata.dat";
+    string cfname = "cartdata.dat";
 
     ctrl.genUserFile(ufname);
 
@@ -29,28 +30,13 @@ int main()
     ctrl.saveRecord(ufname);
 
     ctrl.printRecord();
-    /*
-    //random items
-    Item r1, r2, r3;
-    r1.generate();
-    r2.generate();
-    r3.generate();
-    //item display
-    cout << endl;
-    r1.display();
-    cout << endl;
-    r2.display();
-    cout << endl;
-    r3.display();
-    cout << endl;
-    */
+   
+    // //inventory test
+    // Inventory test;
+    // test.fill(10);
+    // test.display();
 
-    //inventory test
-    Inventory inv(10);
-    inv.fill();
-    inv.display();
-
-    Inventory test;
-    test.fill(10);
-    test.displayV();
+    ctrl.genCartFile(cfname);
+    ctrl.readCartFile(cfname);
+    ctrl.printCarts();
 }

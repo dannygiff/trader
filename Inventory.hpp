@@ -13,8 +13,7 @@ class Inventory {
     private:
         string name;
         int size;
-        Item *items;
-        vector<Item> itemV;
+        vector<Item> items;
 
         //helper functions
         void header();
@@ -22,7 +21,7 @@ class Inventory {
     protected:
     public:
         Inventory();
-        Inventory(int);
+        Inventory(string);
 
         string getName(){return name;}
         int getSize(){return size;}
@@ -30,11 +29,11 @@ class Inventory {
         void setName(string);
         void setSize(int);
 
-        void fill();
         void fill(int);
-        void sample();
         void display();
-        void displayV();
+
+        void save(fstream &);
+        Inventory load(fstream &);
 
         ~Inventory();
 };
