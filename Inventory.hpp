@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "Item.hpp"
 
@@ -13,6 +14,7 @@ class Inventory {
         string name;
         int size;
         Item *items;
+        vector<Item> itemV;
 
         //helper functions
         void header();
@@ -29,7 +31,10 @@ class Inventory {
         void setSize(int);
 
         void fill();
+        void fill(int);
+        void sample();
         void display();
+        void displayV();
 
         ~Inventory();
 };

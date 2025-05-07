@@ -52,6 +52,21 @@ void Inventory::fill()//fill the inventory with random items
     }
 }
 
+void Inventory::fill(int n)
+{
+    for(int i=0; i<n; i++)
+    {
+        Item temp;
+        temp.generate();
+        this->itemV.push_back(temp);
+    }
+}
+
+void Inventory::sample()//fill the inventory with a static set of sample items
+{
+
+}
+
 void Inventory::display()
 {
     header();
@@ -59,6 +74,18 @@ void Inventory::display()
     {
         cout << setw (2) << i+1 << " ";
         this->items[i].display();
+        cout << endl;
+    }
+    bar(40);
+}
+
+void Inventory::displayV()
+{
+    header();
+    for(int i=0; i<this->itemV.size(); i++)
+    {
+        cout << setw (2) << i+1 << " ";
+        this->itemV.at(i).display();
         cout << endl;
     }
     bar(40);

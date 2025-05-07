@@ -28,13 +28,12 @@ class User{
         bool getAdmin(){return admin;}
         int getCurrency(){return currency;}
 
-        void genFile(string); //generates a new userdata file
         void save(fstream&);
-        User loadPos(int);    //loads a User at a specified position
+        User loadFromFile(fstream&);    //loads a User from a file
         void login();
 
-
-        ~User();
+        void print();
+        //~User();
 };
 
 

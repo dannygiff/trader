@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <map>
 
 #include "Item.hpp"
 #include "Inventory.hpp"
@@ -20,23 +21,33 @@ class Handler{
         User user;       //current logged in user
         Inventory* shop; //what shop are they looking at
 
-        int nUsers;      //how many users on record
-        vector<User> userRecord;
+        int nUsers;              //how many users on record
+        vector<User> userRecord; //the record
+
+        map<string, Inventory> cartData; //associative container linking a username to an inventory
 
         bool quit;
         bool goodInput;
+        
     public:
         Handler();
         Handler(User, Inventory);
 
+        //getters/setters
+        int getNumUsers(){return nUsers;}
+
+        void setUser(User u){user = u;}
+
         //user record functions
-        void genFile();
-        void loadRecord();
-        void saveRecord();
+        void genUserFile(string);   //generate userdata.dat file
+        void printRecord();
+        void loadRecord(string);
+        void saveRecord(string);
         void addtoRecord(User);
         int findUser(string);
 
         //shopping functions
+        void genCartFile(string);     //generate cartdata.dat file
         void menu();
         void purchase();
 

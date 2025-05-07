@@ -1,6 +1,7 @@
 #include "User.hpp"
 
 #include <iostream>
+#include <iomanip>
 #include <fstream>
 #include <string>
 
@@ -18,16 +19,6 @@ User::User(string n, bool a, int c)
     currency = c;
 }
 
-void User::genFile(string filename)
-{
-    /*maybe this goes in handler
-    User admn("Admin", true, 1000);//generic administrator
-
-    fstream outfile;
-    outfile.open(filename, ios::out | ios::binary);
-    admn.save(outfile);
-    */
-}
 
 void User::save(fstream &outfile)
 {
@@ -45,23 +36,42 @@ void User::save(fstream &outfile)
     //write currency
     outfile.write( reinterpret_cast<const char *>(&currency), sizeof(currency));
 
-    //write cart
-    int cartlen = cart.size();
-    outfile.write( reinterpret_cast<const char *>(&cartlen), sizeof(cartlen));//write vector size
-    if (!cart.empty())
-    {
-        for (int i=0; i<cart.size(); i++)
-        {
-            outfile.write(reinterpret_cast<const char*>(&i), sizeof(i)); //write index
-            cart.at(i).save(outfile);
-        }
-    }
+    // //write cart
+    // int cartlen = cart.size();
+    // outfile.write( reinterpret_cast<const char *>(&cartlen), sizeof(cartlen));//write vector size
+    // if (!cart.empty())
+    // {
+    //     for (int i=0; i<cart.size(); i++)
+    //     {
+    //         outfile.write(reinterpret_cast<const char*>(&i), sizeof(i)); //write index
+    //         cart.at(i).save(outfile);
+    //     }
+    // }
 }
 
-User User::loadPos(int pos)
+User User::loadFromFile(fstream &infile)
 {
+    string name;
+    bool admin;
+    int currency;
 
-    return User();
+    //get name length
+    int nameLen = 0;
+    infile.read( reinterpret_cast<char *>( &nameLen ), sizeof( nameLen ) );
+
+    //get name
+    char* temp = new char[nameLen + 1];
+    infile.read( temp, nameLen );
+    temp[nameLen] = '\0';
+    name = temp;
+
+    //get admin
+    infile.read( reinterpret_cast<char *>( &admin ), sizeof( admin ) );
+
+    //get currency
+    infile.read( reinterpret_cast<char *>( &currency ), sizeof( currency ) );
+    delete [] temp;
+    return User(name, admin, currency);
 }
 
 void User::login()
@@ -81,4 +91,11 @@ void User::login()
     */
     //cout << "\nPlease enter a username: ";
 
+}
+
+void User::print()
+{
+    cout << "Username: " << setw(10) << name << "  "
+         << "Admin: " << (this->getAdmin()? 'T' : 'F') << "  "
+         << "Currency: " << setw(6) << currency << endl;
 }
