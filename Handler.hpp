@@ -24,7 +24,7 @@ class Handler{
         int nUsers;              //how many users on record
         vector<User> userRecord; //the record
 
-        map<string, Inventory> cartData; //associative container linking a username to an inventory
+        map<string, Inventory> cartData; //associative container linking usernames to inventories
 
         bool quit;
         bool goodInput;
@@ -46,10 +46,13 @@ class Handler{
         void addtoRecord(User);
         int findUser(string);
 
-        //shopping functions
+        //cartData functions
         void genCartFile(string);     //generate cartdata.dat file
         void readCartFile(string);    //reads file into cartData map
         void printCarts();            //prints all cartData (for testing)
+        void addToCart(Item);
+
+        //shopping functions
         void menu();
         void purchase();
 

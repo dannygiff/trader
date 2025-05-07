@@ -17,7 +17,7 @@ class User{
         string name;
         bool admin;        //is the user an admin
         int currency;      //coins, points, etc.
-        vector<Item> cart; //cart of Items
+        //vector<Item> cart; //cart of Items
 
         //utility functions
     public:

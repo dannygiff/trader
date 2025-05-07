@@ -22,6 +22,11 @@ Item::Item(string nam, int val, int qt)
     this->qty = qt;
 }
 
+void Item::setQty(int q)
+{
+    qty = q;
+}
+
 void Item::display()
 {
     cout << setw(10) << this->getName() << " x" << setw(3) << left << this->getQty()

@@ -31,6 +31,7 @@ class Inventory {
 
         void fill(int);
         void display();
+        void addItem(Item);
 
         void save(fstream &);
         Inventory load(fstream &);

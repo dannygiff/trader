@@ -61,6 +61,29 @@ void Inventory::display()
     bar(40);
 }
 
+void Inventory::addItem(Item itm)
+{
+    //see if the item is already in the inventory
+    bool found = false;
+    int pos = -1;
+    for (int i=0; i<items.size(); i++)
+    {
+        if (items[i].getName() == itm.getName() && items[i].getVal() == itm.getVal())
+        {
+            found = true;
+            pos = i;
+        }
+    }
+
+    if(found)
+    {
+        int newQty = items[pos].getQty() + itm.getQty();
+        items[pos].setQty(newQty);
+    }else{
+        items.push_back(itm);
+    }
+}
+
 void Inventory::save(fstream &outfile)
 {
     //outfile should be open

@@ -151,3 +151,14 @@ void Handler::printCarts()
         cout << endl;
     }
 }
+
+void Handler::addToCart(Item itm)
+{
+    //find the user's cart
+    auto it = cartData.find(user.getName());
+    if (it != cartData.end())
+    {
+        //it->second.
+    }
+
+}

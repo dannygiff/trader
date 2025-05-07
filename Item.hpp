@@ -26,7 +26,7 @@ class Item {
             int getQty(){ return qty; }
 
             //setters
-
+            void setQty(int);
 
             //fns
             void display();
