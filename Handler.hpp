@@ -17,8 +17,11 @@
 */
 class Handler{
     private:
-        User user;      //who is running the program
+        User user;       //current logged in user
         Inventory* shop; //what shop are they looking at
+
+        int nUsers;      //how many users on record
+        vector<User> userRecord;
 
         bool quit;
         bool goodInput;
@@ -26,9 +29,14 @@ class Handler{
         Handler();
         Handler(User, Inventory);
 
-        void loadAll();
-        void addUser();
+        //user record functions
+        void genFile();
+        void loadRecord();
+        void saveRecord();
+        void addtoRecord(User);
+        int findUser(string);
 
+        //shopping functions
         void menu();
         void purchase();
 

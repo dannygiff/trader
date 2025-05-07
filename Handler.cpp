@@ -12,3 +12,8 @@ Handler::Handler()
 {
     
 }
+
+void Handler::genFile()
+{
+    
+}

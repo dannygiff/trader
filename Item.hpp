@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -30,6 +31,7 @@ class Item {
             //fns
             void display();
             void generate();
+            void save(fstream &);
 };
 
 #endif

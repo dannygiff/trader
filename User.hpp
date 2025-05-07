@@ -20,7 +20,6 @@ class User{
         vector<Item> cart; //cart of Items
 
         //utility functions
-        void findUser();
     public:
         User(); //default constructor
         User(string, bool, int);
@@ -31,6 +30,7 @@ class User{
 
         void genFile(string); //generates a new userdata file
         void save(fstream&);
+        User loadPos(int);    //loads a User at a specified position
         void login();
 
 

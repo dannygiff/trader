@@ -42,3 +42,19 @@ void Item::generate()//generates a random item
     //this->weight = rand()%99 + 1;
     this->qty = rand()%9 + 1;
 }
+
+void Item::save(fstream &outfile)//writes the item to binary file
+{
+    //outfile should already be open
+    
+    //write name
+    int nameLen = this->name.size();
+    outfile.write(reinterpret_cast<const char*>(&nameLen), sizeof(nameLen)); //write size 
+    outfile.write(name.c_str(), nameLen);//write name
+
+    //write value
+    outfile.write( reinterpret_cast<const char *>(&value), sizeof(value));
+
+    //write qty
+    outfile.write( reinterpret_cast<const char *>(&qty), sizeof(qty));
+}
