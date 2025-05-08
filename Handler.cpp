@@ -62,9 +62,15 @@ void Handler::saveRecord(string filename)
 {
     fstream outfile;
     outfile.open(filename, ios::out | ios::binary);
-    outfile.write( reinterpret_cast<const char *>(&nUsers), sizeof(nUsers));
-    for (int i=0; i<nUsers; i++)
+
+    //write size of vector
+    int vecSize = userRecord.size();
+    outfile.write( reinterpret_cast<const char *>(&vecSize), sizeof(vecSize));
+    
+    //write vector
+    for (int i=0; i<vecSize; i++)
     {
+        //write each user
         userRecord.at(i).save(outfile);
     }
     outfile.close();
@@ -92,30 +98,34 @@ void Handler::login()
     } while (input == "");
 
     pos = findUser(input);
-
+    cout << "\npos = " << pos;
     if(pos >= 0)
     {
-        setUser(userRecord[pos]);
+        this->setUser(userRecord[pos]);
         cout << "Welcome back " << user.getName() << endl;
     }else{
         User temp(input, false, 1000);
         userRecord.push_back(temp);
-        setUser(temp);
+        this->setUser(temp);
         cout << "Created new user " << user.getName() << endl;
     }
 }
 
-int Handler::findUser(string name)
+int Handler::findUser(string target)
 {
     int pos = -1;
-
+    cout << "\nsearching for: " << target;
     for(int i=0; i<userRecord.size(); i++)
     {
-        if(userRecord[i].getName() == name);
-            pos = i;
+        if(userRecord.at(i).getName() == target)
+        {
+            cout << "\nFound " << userRecord.at(i).getName() << " (" << target << ")";
+            return i;
+        }
+            
     }
 
-    return pos;
+    return -1;
 }
 
 void Handler::genCartFile(string filename)
@@ -181,6 +191,29 @@ void Handler::readCartFile(string filename)
         delete [] temp;
     }
     infile.close();
+}
+
+void Handler::saveCartFile(string filename)
+{
+    fstream outfile;
+    outfile.open(filename, ios::out | ios::binary);
+
+    //write size of map
+    int mSize = cartData.size();
+    outfile.write( reinterpret_cast<const char *>(&mSize), sizeof(mSize));
+
+    for (auto it = cartData.begin(); it != cartData.end(); ++it)
+    {
+        int nameLen = it->first.length();
+        outfile.write(reinterpret_cast<const char*>(&nameLen), sizeof(nameLen)); //write size of name
+
+        outfile.write(it->first.c_str(), nameLen);//write name
+
+        
+        it->second.save(outfile);
+    }
+
+    outfile.close();
 }
 
 void Handler::printCarts()
