@@ -4,16 +4,38 @@
 #include <vector>
 #include <fstream>
 #include <map>
+#include <cctype>
 
 #include "Item.hpp"
 #include "Inventory.hpp"
 #include "User.hpp"
 
-
-
 Handler::Handler()
 {
 
+}
+
+Handler::Handler(string userFileName, string cartFileName)
+{
+    fstream uFile, cFile;
+    
+    //check for user record
+    uFile.open(userFileName, ios::in | ios::out | ios::binary);
+    if(!uFile)
+    {
+        this->genUserFile(userFileName);
+    }
+    this->loadRecord(userFileName);
+    uFile.close();
+
+    //check for cart data
+    cFile.open(cartFileName, ios::in | ios::out | ios::binary);
+    if(!cFile)
+    {
+        this->genCartFile(cartFileName);
+    }
+    this->readCartFile(cartFileName);
+    cFile.close();
 }
 
 void Handler::genUserFile(string filename)
@@ -85,9 +107,8 @@ void Handler::addtoRecord(User u)
 
 void Handler::login()
 {
-    string input;
+    string input = "";
     int pos;
-
     cout << "Please enter a username: ";
     // do not let the user enter an empty string as a username
     do {
@@ -98,7 +119,7 @@ void Handler::login()
     } while (input == "");
 
     pos = findUser(input);
-    cout << "\npos = " << pos;
+    //cout << "\npos = " << pos;
     if(pos >= 0)
     {
         this->setUser(userRecord[pos]);
@@ -114,12 +135,12 @@ void Handler::login()
 int Handler::findUser(string target)
 {
     int pos = -1;
-    cout << "\nsearching for: " << target;
+    //cout << "\nsearching for: " << target;
     for(int i=0; i<userRecord.size(); i++)
     {
         if(userRecord.at(i).getName() == target)
         {
-            cout << "\nFound " << userRecord.at(i).getName() << " (" << target << ")";
+            //cout << "\nFound " << userRecord.at(i).getName() << " (" << target << ")";
             return i;
         }
             
@@ -256,10 +277,103 @@ void Handler::showUserCart()
 
 void Handler::menu()
 {
-    cout << "Menu (logged in as " << user.getName() <<  " )" << endl;
-    cout << "1. Change user" << endl;
-    cout << "2. View cart" << endl;
-    cout << "3. View shops" << endl;
-    if(user.getAdmin())
-        cout << "4. View admin menu" << endl;
+    bool quit = false;
+    char choice;
+    do
+    {
+        //menu prompt
+        cout << "\nMenu (logged in as " << user.getName() <<  " )" << endl;
+        cout << "1 - Change user" << endl;
+        cout << "2 - View cart" << endl;
+        cout << "3 - View shop" << endl;
+        if(user.getAdmin())
+            cout << "4 - View admin menu" << endl;
+        cout << "q - Quit" << endl;
+
+        //get choice
+        cout << "\nEnter your choice: ";
+        cin >> choice;
+
+        //execute choice
+        switch(choice)
+        {
+            case '1':
+                cout << "Changing user...";
+                this->login();
+                break;
+            case '2':
+                cout << "Viewing cart...";
+                this->showUserCart();
+                break;
+            case '3':
+                cout << "Viewing items for sale...";
+                this->browse();
+                break;
+            case '4':
+                if(user.getAdmin())
+                {
+                    cout << "Viewing admin menu...";
+                }else{
+                    cout << "Error: " << user.getName() << " is not an admin";
+                }
+                break;
+            case 'q':
+                cout << "Exiting...";
+                break;
+            default:
+                cout << "Invalid choice. Please try again";
+        }
+        
+    } while (choice != 'q');
+}
+
+void Handler::browse()
+{
+    char choice;
+    int val;
+    bool goodInput = false;
+    Inventory store = this->getInv();
+    do
+    {
+        store.display();
+        cout << "\nEnter the item number you wish to purchase (or q to quit):" << endl;
+        cin >> choice;
+
+        if(choice == 'q')
+        {
+            goodInput = true;
+        }else if (isdigit(choice)){
+            val = choice - '0'; //ascii to int
+            if(val > 0 && val < shop.getSize())
+            {
+                cout << "Purchasing " << store.getItemAt(val).getName();
+                purchase(val);
+                goodInput = true;
+            }
+        }
+            
+
+    } while (!goodInput);
+
+
+    
+}
+
+void Handler::purchase(int pos)
+{
+    int quant;
+    cout << "\nHow many are you buying? ";
+    cin >> quant;
+    if (quant < 0)
+        quant = 0;
+    if (quant > this->getInv().getItemAt(pos).getQty())
+        quant = this->getInv().getItemAt(pos).getQty();
+    addToCart(this->getInv().getItemAt(pos));
+    this->getInv().remove(pos, quant);
+}
+
+void Handler::saveAll(string ufname, string cfname)
+{
+    this->saveRecord(ufname);
+    this->saveCartFile(cfname);
 }

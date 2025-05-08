@@ -19,7 +19,7 @@
 class Handler{
     private:
         User user;       //current logged in user
-        Inventory* shop; //what shop are they looking at
+        Inventory shop; //what shop are they looking at
 
         int nUsers;              //how many users on record
         vector<User> userRecord; //the record
@@ -31,12 +31,13 @@ class Handler{
         
     public:
         Handler();
-        Handler(User, Inventory);
+        Handler(string, string);
 
         //getters/setters
         int getNumUsers(){return nUsers;}
-
+        Inventory getInv(){return shop;}
         void setUser(User u){user = u;}
+        void setInv(Inventory in){shop = in;}
 
         //user record functions
         void genUserFile(string);   //generate userdata.dat file
@@ -57,8 +58,10 @@ class Handler{
 
         //shopping functions
         void menu();
-        void purchase();
+        void browse();
+        void purchase(int);
 
+        void saveAll(string, string);
         void getInput();
         User getUser();
 };

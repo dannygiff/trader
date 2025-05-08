@@ -25,7 +25,8 @@ class Inventory {
         Inventory(Item);
 
         string getName(){return name;}
-        int getSize(){return size;}
+        int getSize(){return items.size();}
+        Item getItemAt(int n){return items.at(n);}
 
         void setName(string);
         void setSize(int);
@@ -33,6 +34,7 @@ class Inventory {
         void fill(int);
         void display();
         void addItem(Item);
+        void remove(int, int);
 
         void save(fstream &);
         Inventory load(fstream &);

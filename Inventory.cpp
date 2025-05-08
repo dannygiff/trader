@@ -91,6 +91,12 @@ void Inventory::addItem(Item itm)
     }
 }
 
+void Inventory::remove(int pos, int amnt)
+{
+    int newQty = (items.at(pos).getQty() - amnt);
+    items.at(pos).setQty(newQty);
+}
+
 void Inventory::save(fstream &outfile)
 {
     //outfile should be open
