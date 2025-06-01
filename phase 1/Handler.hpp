@@ -25,9 +25,6 @@ class Handler{
         vector<User> userRecord; //the record
 
         map<string, Inventory> cartData; //associative container linking usernames to inventories
-
-        bool quit;
-        bool goodInput;
         
     public:
         Handler();
@@ -62,8 +59,6 @@ class Handler{
         void purchase(int);
 
         void saveAll(string, string);
-        void getInput();
-        User getUser();
 };
 
 #endif //HANDLER_H
