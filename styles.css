@@ -1,0 +1,48 @@
+body {
+    background-color: #beceb0;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    background-color: #f1efe9;
+    padding: 10px 0;
+}
+
+.logo img {
+    max-width: 100%;
+    height: auto;
+}
+
+nav {
+    margin-top: 10px;
+}
+
+.nav-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.nav-links li {
+    display: inline;
+}
+
+.nav-links img {
+    width: 200px;
+    height: auto;
+}
+
+
+
+footer {
+    text-align: center;
+    background-color: #34857f;
+    color: #b0a48a;
+    padding: 10px 0;
+    font-size: 0.9em;
+}
