@@ -19,7 +19,7 @@
 
                 $q = "INSERT INTO `items`(`item_name`, `description`, `value`, `img_name`) VALUES (?,?,?,?)";
                 $statement = $connection->prepare( $q );
-                $statement->bind_param( "ssss", $name, $desc, $value, $file );
+                $statement->bind_param( "ssis", $name, $desc, $value, $file );
 
                 // debug( $name, $fn, $fn );
                 $statement->execute();

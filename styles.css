@@ -37,7 +37,9 @@ nav {
     height: auto;
 }
 
-
+table {
+    width: 75%
+}
 
 footer {
     text-align: center;
