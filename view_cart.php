@@ -1,5 +1,8 @@
 <?php
-session_start();
+//includes
+//session_start();
+include( 'includes/header.php' );
+require_once( "connect.php" );
 
 // Redirect if cart is empty
 if (empty($_SESSION['cart'])) {
@@ -7,9 +10,6 @@ if (empty($_SESSION['cart'])) {
     exit;
 }
 
-//includes
-include( 'includes/header.php' );
-require_once( "connect.php" );
 
 //get cart ids
 $cart_ids = array_keys($_SESSION['cart']);
@@ -26,9 +26,8 @@ if (!empty($cart_ids)) {
         die("Prepare failed: " . $connection->error);
     }
 
-    // // Ensure all IDs are integers
-    // $cart_ids = array_map('intval', $cart_ids);
-
+    
+    //prepare statement
     $types = str_repeat('i', count($cart_ids)); //(iii...) 
     $s->bind_param($types, ...$cart_ids); 
 
@@ -73,12 +72,14 @@ if (!empty($cart_ids)) {
         <td><strong><?php echo $total; ?></strong></td>
     </tr>
 </table>
-
+<div class="checkout" style="text-align:center;">
+    <button type="button" onclick="alert('there goes <?php echo $total; ?>...things!')">Checkout</button>
+</div>
 <div class="actions">
     <form method="post" action="view_cart.php">
         <button type="submit" name="clear_cart">Empty Cart</button>
     </form>
-    <p><a href="browse.php">Back to items</a></p>
+    <p><a href="browse.php">Back to items</a></p>  
 </div>
 
 <?php

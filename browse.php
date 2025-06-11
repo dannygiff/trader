@@ -4,9 +4,6 @@ include( 'includes/header.php' );
 
 require_once( "connect.php" );
 
-
-session_start();
-
 //initialize cart if not set
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
