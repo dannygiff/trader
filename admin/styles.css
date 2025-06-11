@@ -44,12 +44,6 @@ table {
             margin: 20px auto;
 }
 
-th, td {
-            border: 1px solid #ccc;
-            padding: 10px 15px;
-            text-align: left;
-        }
-
 footer {
     text-align: center;
     background-color: #34857f;

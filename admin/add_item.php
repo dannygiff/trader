@@ -1,25 +1,25 @@
 <!doctype html>
 <html>
 <head>
-    <title>add an item</title>
+    <title>add a print</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
     <?php
         if( $_SERVER['REQUEST_METHOD'] == "POST" ){ //doing the action
-            var_dump( $_POST );
+            //var_dump( $_POST );
             if( !empty( $_POST['item_name'] ) ){
                 $name = trim( $_POST['item_name']);
                 $desc = !empty( $_POST['item_desc'] ) ? trim( $_POST['item_desc'] ) : null;
                 $value = !empty( $_POST['item_value'] ) ? trim( $_POST['item_value'] ) : null;
-                $file = !empty( $_POST['item_filename'] ) ? trim( $_POST['item_filename'] ) : null;
+                $file = !empty( $_POST['item_type'] ) ? trim( $_POST['item_type'] ) : null;
 
                 //talk to the database
                 require( "../connect.php" );
 
-                $q = "INSERT INTO `items`(`item_name`, `description`, `value`, `img_name`) VALUES (?,?,?,?)";
+                $q = "INSERT INTO `items`(`item_name`, `description`, `value`, `type`) VALUES (?,?,?,?)";
                 $statement = $connection->prepare( $q );
-                $statement->bind_param( "ssis", $name, $desc, $value, $file );
+                $statement->bind_param( "ssii", $name, $desc, $value, $file );
 
                 // debug( $name, $fn, $fn );
                 $statement->execute();
@@ -57,12 +57,20 @@
             <label for="item_value"><b>value</b></label>
             <input type="text" id="item_value" name="item_value" value="">
 
-            <label for="item_filename"><b>img filename</b></label>
-            <input type="text" id="item_filename" name="item_filename" value="">
+            <label for="item_filename"><b>item type</b></label>
+            <select id="item_type" name="item_type">
+                <option value="">-select a type-</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
 
             <input type="submit" value="submit" />
 
         </fieldset>
     </form>
+    <br>
+    <br>
+    <a href="../landing.php">home</a>
 </body>
 </html>
