@@ -15,4 +15,4 @@ include ( "includes/header.php" );
 
 <p style="text-align: center"><a href="browse.php">view the stock</a></p>
 
-<?php include ( "includes/footer.php" );
+<?php include ( "includes/footer.php" ); ?>

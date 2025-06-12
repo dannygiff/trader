@@ -37,12 +37,49 @@ nav {
     height: auto;
 }
 
+/* navbar */
+.navbar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #34857f;
+}
+
+.navbar li {
+  float: left;
+  border-right:1px solid #999;
+}
+
+.navbar li:last-child {
+  border-right: none;
+}
+
+.navbar li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar li a:hover:not(.active, .logout) {
+  background-color: #d0d0d0;
+}
+
+
 /* tables */
 table {
     border-collapse: collapse;
             width: 80%;
             margin: 20px auto;
 }
+
+th, td {
+            border: 1px solid #ccc;
+            padding: 10px 15px;
+            text-align: left;
+        }
 
 footer {
     text-align: center;

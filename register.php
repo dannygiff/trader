@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<?php if ($register_success): ?>
+<!-- <?php if ($register_success): ?> -->
     <p>Registration successful. <a href="login.php">Login here</a>.</p>
 <?php else: ?>
     <?php if (!empty($error)) echo "<p style='color:red;'>$error</p>"; ?>

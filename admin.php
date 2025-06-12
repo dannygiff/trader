@@ -11,6 +11,8 @@ if (!isset($_SESSION["user_id"]) || !isset($_SESSION["is_admin"]) || !$_SESSION[
 
 <h2>Admin Panel</h2>
 <p>Only visible to admins.</p>
-<p><a href="/admin/add_item.php">Add item</a></p>
+<p><a href="admin/add_item.php">Add item</a></p>
+<p><a href="admin/edit_users.php">Edit users</a></p>
 <p><a href="dashboard.php">Back to Dashboard</a></p>
 
+<?php include ( "includes/footer.php" ); ?>

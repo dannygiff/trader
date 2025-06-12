@@ -71,6 +71,6 @@
     </form>
     <br>
     <br>
-    <a href="../admin.php">back to admin</a>
+    <a href="../admin.php">back to admin dashboard</a>
 </body>
 </html>
