@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>add a print</title>
+    <title>add an item</title>
     <link rel="stylesheet" href="../styles.css">
 </head>
 <body>
@@ -71,6 +71,6 @@
     </form>
     <br>
     <br>
-    <a href="../landing.php">home</a>
+    <a href="../admin.php">back to admin</a>
 </body>
 </html>

@@ -14,7 +14,7 @@ $userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : null;
 <body>
     <header>
         <div class="logo">
-            <!-- <img src="images/title.jpg" width="600" height="61" > -->
+             <img src="images/title.png" width="600" height="61" > 
         </div>
         <nav>
             <!-- <ul class="nav-links">
@@ -26,7 +26,7 @@ $userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : null;
 <ul class="navbar">
     <!-- Left side -->
      <li><a href="browse.php">Browse</a></li>
-     <li><a href="#account.php">Account</a></li>
+     <li><a href="dashboard.php">Account</a></li>
      <?php if (isset($_SESSION["cart"]) && !empty($_SESSION["cart"])): ?>
      <li><a href="view_cart.php">View Cart</a></li>
      <?php endif; ?> 
@@ -35,8 +35,8 @@ $userID = isset($_SESSION['userID']) ? $_SESSION['userID'] : null;
         <li style="float:right"><a href="#logout.php">Logout</a></li>
         <li style="float:right"><a href="#">Welcome, <?php echo htmlspecialchars($_SESSION["uname"]); ?></a></li>
     <?php else: ?>
-        <li style="float:right"><a href="#signup.php">Sign Up</a></li>
-        <li style="float:right"><a href="#login.php">Login</a></li>
+        <li style="float:right"><a href="register.php">Register</a></li>
+        <li style="float:right"><a href="login.php">Login</a></li>
     <?php endif; ?>
 
     <!-- Admin Panel link (only if isAdmin = 1) -->
